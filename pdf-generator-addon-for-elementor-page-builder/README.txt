@@ -51,6 +51,8 @@ The most robust and feature-packed plugin ever for Elementor Page Builder, it su
 
 Furthermore, the plugin has several features such as Custom CSS settings that help you to customize the page elements available on the Elementor Page Builder plugin. It also allows you to show/hide the header and footer elements from the settings. [For PDFMentor PRO - Visit Here](https://codecanyon.net/item/pdfmentor-wordpress-pdf-generator-for-elementor-pro/28376760)
 
+https://www.youtube.com/watch?v=L1lF38XskiI
+
 #### Key Features:
 
 * **Basic Widget of Elementor**
@@ -117,7 +119,7 @@ Our plugin is fully compatible and functional on all types of WooCommerce websit
 * **WooCommerce Single Product Page**
 Creates PDF for WooCommerce single product. Just add the PDF Download Button on the single product page and generate PDF file. It also include security which ensure that the content can not be copied. To do so enable the option "disable copy" from admin settings.
 
-#### DOCUMENTATION
+#### DOCUMENTATION 📝
 
 For more information about [PDFMentor Pro - WordPress PDF Generator for Elementor](https://codecanyon.net/item/pdfmentor-wordpress-pdf-generator-for-elementor-pro/28376760) in documentation form [visit here](https://redefiningtheweb.com/docs/pdfmentor-wordpress-pdf-generator-for-elementor/pdfmentor-overview/).
 
