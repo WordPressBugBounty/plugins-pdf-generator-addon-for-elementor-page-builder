@@ -1,11 +1,11 @@
 === PDF Generator Addon for Elementor Page Builder ===
 Contributors: redefiningtheweb
 Donate link: https://redefiningtheweb.com
-Tags: wordpress pdf generator, elementor pdf generator, elementor, post to pdf, page to pdf, export pdf, generate pdf, pdf creator, pdf generator, pdf generator for elementor, drag-and-drop
+Tags: elementor, pdf creator, generate pdf, pdf plugin, elementor pdf generator, export pdf
 Requires at least: 3.0.1
-Tested up to: 6.6.2
+Tested up to: 6.7.1
 Requires PHP: 7.0
-Stable tag: 1.7.5
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,16 @@ In the search field type "PDF Generator Addon for Elementor Page Builder" and cl
 The manual installation method involves downloading our PDF Generator Addon for Elementor Page Builder and uploading it to your web server via your favorite FTP application. The WordPress codex contains [instructions on how to do this here](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 == Changelog ==
+
+= 2.0.1 =
+* Security bug fixes
+
+= 2.0.0 =
+* All security & vulnerability has been fixed
+* Transalation issue fixed as reported by users
+* Routine Checkup
+* Compatibility testing with latest version of PHP, WordPress, Elementor & WooCommerce
+* All Major & Minor bug fixes
 
 = 1.7.5 =
 * Cross-Site Scripting (XSS) vulnerability fixed

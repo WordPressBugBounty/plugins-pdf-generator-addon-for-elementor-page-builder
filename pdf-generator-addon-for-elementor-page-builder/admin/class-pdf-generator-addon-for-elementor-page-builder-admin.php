@@ -107,17 +107,15 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	 *
 	 * @since    1.0.1
 	 */
-	function rtw_pgaepb_pdf_delete( $rtw_post_id )
+	function rtw_pgaepb_pdf_delete($rtw_post_id)
 	{
-		global $post;
-		if( file_exists( RTW_PDF_DIR . '/' .$rtw_post_id. '.pdf' ) )
-		{
-			unlink(RTW_PDF_DIR . '/' .$rtw_post_id. '.pdf');
-		}
-		elseif( file_exists( RTW_PDF_DIR . '/' .$post->post_name. '.pdf' ) )
-		{
-			unlink(RTW_PDF_DIR . '/' . $post->post_name . '.pdf');
-		}
+		$rtw_post_info = get_post($rtw_post_id);
+        if(file_exists(RTW_PDF_DIR.'/'.$rtw_post_id.'.pdf')) {
+            unlink(RTW_PDF_DIR.'/'.$rtw_post_id.'.pdf');
+        }
+        if(file_exists(RTW_PDF_DIR.'/'.$rtw_post_info->post_name.'.pdf')) {
+            unlink(RTW_PDF_DIR.'/'.$rtw_post_info->post_name.'.pdf');
+        }
 	}
 
 
@@ -127,9 +125,8 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	 * @since    1.0.0
 	 * @name rtw_pgaepb_add_menu_page
 	 */
-	public function rtw_pgaepb_add_menu_page()
-	{
-		add_menu_page(__('Elementor PDF Setting'),__('Elementor PDF Setting'),'manage_options','rtw_pgaepb',array($this,'rtw_pgaepb_add_menu_page_html'));
+	public function rtw_pgaepb_add_menu_page() {
+		add_menu_page(__('Elementor PDF Add-on Settings','pdf-generator-addon-for-elementor-page-builder'),__('Elementor PDF Settings','pdf-generator-addon-for-elementor-page-builder'),'manage_options','rtw_pgaepb',array($this,'rtw_pgaepb_add_menu_page_html'));
 	}
 
 
@@ -139,8 +136,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	 * @since    1.0.0
 	 * @name rtw_pgaepb_add_menu_page_html
 	 */
-	public function rtw_pgaepb_add_menu_page_html()
-	{
+	public function rtw_pgaepb_add_menu_page_html() {
 		include(RTW_PGAEPB_DIR.'admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php');
 	}
 
@@ -152,11 +148,13 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	 */
 	public function rtw_pgaepb_save_admin_setting()
 	{
-		if( isset( $_POST['rtw_pdf_submit'] ) )
-		{
-			$pdf_dir = RTW_PDF_DIR;
-			array_map('unlink', glob("$pdf_dir/*.*"));
-		}
+		$rtw_save_button = isset($_POST['rtw_pdf_submit']) ? sanitize_text_field($_POST['rtw_pdf_submit']) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+        if($rtw_save_button) {
+            $pdf_dir = RTW_PDF_DIR;
+            array_map('unlink', glob("$pdf_dir/*.*"));
+        }
+
 		register_setting('rtw_pgaepb_header_setting','rtw_pgaepb_header_setting_opt');
 		register_setting('rtw_pgaepb_footer_setting','rtw_pgaepb_footer_setting_opt');
 		register_setting('rtw_pgaepb_basic_setting','rtw_pgaepb_basic_setting_opt');

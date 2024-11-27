@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF Generator Addon for Elementor Page "
 "Builder-1.7.0\n"
-"POT-Creation-Date: 2024-10-01 02:35+0530\n"
+"POT-Creation-Date: 2024-11-26 15:52+0530\n"
 "PO-Revision-Date: 2021-01-13 20:31+0530\n"
 "Last-Translator: \n"
 "Language-Team: RedefiningTheWeb(developer@redefiningtheweb.com)\n"
@@ -19,45 +19,45 @@ msgstr ""
 "esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/class-pdf-generator-addon-for-elementor-page-builder-admin.php:132
-msgid "Elementor PDF Setting"
+#: admin/class-pdf-generator-addon-for-elementor-page-builder-admin.php:129
+msgid "Elementor PDF Add-on Settings"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:101
-msgid "PDF Generator Addon for Elementor"
+#: admin/class-pdf-generator-addon-for-elementor-page-builder-admin.php:129
+msgid "Elementor PDF Settings"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:103
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:102
 msgid "Home"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:104
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:103
 msgid "Basic Setting"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:105
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:104
 msgid "PDF Header Setting"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:106
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:105
 msgid "PDF Footer Setting"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:107
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:106
 msgid "PDF CSS Setting"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:108
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:107
 msgid "PDF WaterMark Setting"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:110
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:109
 msgid ""
 "* All values which you enter like top-margin, font-size etc. are in "
 "<strong>mm</strong> not in px"
 msgstr ""
 
-#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:147
+#: admin/partials/pdf-generator-addon-for-elementor-page-builder-admin-display.php:137
 msgid "Save Changes"
 msgstr ""
 
@@ -148,13 +148,11 @@ msgid "Background Image"
 msgstr ""
 
 #: admin/partials/rtw_pgaepb_tabs/pgaepb_basic.php:93
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:91
-msgid "Upload/Add image"
+msgid "Upload/Add Image"
 msgstr ""
 
 #: admin/partials/rtw_pgaepb_tabs/pgaepb_basic.php:94
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:92
-msgid "Remove image"
+msgid "Remove Image"
 msgstr ""
 
 #: admin/partials/rtw_pgaepb_tabs/pgaepb_basic.php:95
@@ -183,74 +181,74 @@ msgstr ""
 msgid "PDF Page Size"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:328
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:323
 msgid "Choose the size of PDF page"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:332
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:327
 msgid "PDF Page Orientation"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:336
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:331
 msgid "Portrait"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:340
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:335
 msgid "Landscape"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:342
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:337
 msgid "Choose your required page Orientation of PDF."
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:346
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:341
 msgid "Body Top Margin"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:348
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:343
 msgid ""
 "Enter your required top margin for main PDF body (By default 37). "
 "Minimum 37 required otherwise will not work"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:352
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:347
 msgid "Body Left Margin"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:354
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:349
 msgid "Enter your required left margin for main PDF body (By default 15)"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:358
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:353
 msgid "Body Right Margin"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:360
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:355
 msgid ""
 "Enter your required right margin for main PDF body (By default 15)"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:364
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:359
 msgid "Body Font Family"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:376
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:367
 msgid "Choose the font family for the generated PDF"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:380
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:371
 msgid "Body Font Size"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:383
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:374
 msgid "Enter your required font size for Body of the PDF (By default 15)"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:388
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:379
 msgid "PDF Custom CSS"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:391
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_css.php:382
 msgid "Enter your required custom CSS for PDF"
 msgstr ""
 
@@ -327,106 +325,111 @@ msgid "Enter your required font size for PDF Header (By default 15)"
 msgstr ""
 
 #: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:7
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:34
 msgid "Watermark Text"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:13
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:10
 msgid "Check it if you want to show Watermark text"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:20
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:16
 msgid "Watermark Font"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:32
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:23
 msgid "Choose the font family of Watermark text"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:36
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:27
 msgid "Watermark Rotation"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:40
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:30
 msgid "Enter your required rotation (in degree) for Watermark text"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:44
-msgid "Watermark Text:"
-msgstr ""
-
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:49
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:37
 msgid "Enter Watermark text which you want to show on PDF"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:53
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:41
 msgid "Text Opacity"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:57
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:45
 msgid "Select the text opacity for Watermark"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:64
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:52
 msgid "Image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:70
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:55
 msgid "Check it if you want to show Watermark image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:76
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:61
 msgid "Image Opacity"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:79
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:64
 msgid "Select the image opacity for Watermark"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:83
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:68
 msgid "Watermark Image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:94
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:76
+msgid "Upload/Add image"
+msgstr ""
+
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:77
+msgid "Remove image"
+msgstr ""
+
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:79
 msgid "Choose your Watermark Image which you want to show on PDF"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:99
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:84
 msgid "Image Dimension"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:110
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:95
 msgid "Choose the dimension of Watermark image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:118
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:103
 msgid "Image Width"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:122
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:107
 msgid "Set the Width of Watermark image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:126
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:111
 msgid "Image Height"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:130
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:114
 msgid "Set the Height of Watermark image"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:141
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:124
 msgid "Integer Value"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:152
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:135
 msgid "Image Position"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:169
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:152
 msgid "Horizontal Position"
 msgstr ""
 
-#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:175
+#: admin/partials/rtw_pgaepb_tabs/pgaepb_watermark.php:158
 msgid "Vertical Position"
 msgstr ""
 
@@ -478,10 +481,18 @@ msgstr ""
 msgid "Download PDF"
 msgstr ""
 
-#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:128
+#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:131
 msgid "Some Thing Went Wrong! Please Try Again"
 msgstr ""
 
-#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:285
+#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:146
+msgid "Invalid file path."
+msgstr ""
+
+#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:152
+msgid "Invalid file type."
+msgstr ""
+
+#: public/class-pdf-generator-addon-for-elementor-page-builder-public.php:310
 msgid "Categories : "
 msgstr ""

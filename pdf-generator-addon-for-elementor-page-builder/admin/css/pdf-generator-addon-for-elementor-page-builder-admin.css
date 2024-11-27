@@ -253,6 +253,7 @@
     position: absolute;
     top: 35px;
     left: -12px;
+    text-transform: uppercase;
 }
 .rtw_sb_card_label label{
     margin: 0;

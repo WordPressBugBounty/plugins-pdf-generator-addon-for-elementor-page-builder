@@ -10,7 +10,7 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'PDF - Generator', 'elementor' );
+		return __( 'PDF - Generator', 'pdf-generator-addon-for-elementor-page-builder' );
 	}
 
 	public function get_icon() {
@@ -26,16 +26,16 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => __( 'PDF Settings', 'elementor' )
+				'label' => __( 'PDF Settings', 'pdf-generator-addon-for-elementor-page-builder' )
 			]
 		);
 
 		$this->add_control(
 			'pdf_width',
 			[
-				'label' => __( 'PDF Button Width', 'elementor' ),
+				'label' => __( 'PDF Button Width', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'type' => Controls_Manager::NUMBER,
-				'placeholder' => __( 'Enter PDF Button Width', 'elementor' ),
+				'placeholder' => __( 'Enter PDF Button Width', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'default' => 64,
 			]
 		);
@@ -43,9 +43,9 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
 		$this->add_control(
 			'pdf_height',
 			[
-				'label' => __( 'PDF Button Height', 'elementor' ),
+				'label' => __( 'PDF Button Height', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'type' => Controls_Manager::NUMBER,
-				'placeholder' => __( 'Enter PDF Button Height', 'elementor' ),
+				'placeholder' => __( 'Enter PDF Button Height', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'default' => 64,
 			]
 		);
@@ -53,7 +53,7 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
         $this->add_control(
 		  'pdf_image',
 		  [
-		     'label' => __( 'PDF Button Icon', 'elementor' ),
+		     'label' => __( 'PDF Button Icon', 'pdf-generator-addon-for-elementor-page-builder' ),
 		     'type' => Controls_Manager::MEDIA,
 		     'default' => [
 		        'url' => RTW_PGAEPB_URL.'/public/images/pdf_down_icon.png',
@@ -64,18 +64,18 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
         $this->add_control(
 			'pdf_class',
 			[
-				'label' => __( 'Exclude HTML Class', 'elementor' ),
+				'label' => __( 'Exclude HTML Class', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'type' => Controls_Manager::TEXT,
-				'placeholder' => __( 'For multiple classes use commma', 'elementor' )
+				'placeholder' => __( 'For multiple classes use commma', 'pdf-generator-addon-for-elementor-page-builder' )
 			]
 		);
 
         $this->add_control(
 			'pdf_id',
 			[
-				'label' => __( 'Exclude HTML ID', 'elementor' ),
+				'label' => __( 'Exclude HTML ID', 'pdf-generator-addon-for-elementor-page-builder' ),
 				'type' => Controls_Manager::TEXT,
-				'placeholder' => __( 'For multiple IDs use commma', 'elementor' )
+				'placeholder' => __( 'For multiple IDs use commma', 'pdf-generator-addon-for-elementor-page-builder' )
 			]
 		);
 
@@ -196,7 +196,7 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
 			<img src="'.RTW_PGAEPB_URL.'/public/images/spinner.gif" class="rtwwpge_pdf_gif">
 		</div>';
 		
-		echo $rtw_html;
+		echo $rtw_html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
 Plugin::instance()->widgets_manager->register_widget_type( new RTWWPGE_Widget_PDF() );

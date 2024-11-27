@@ -43,7 +43,8 @@
           "rtw_pgaepb_id": rtw_post_id,
           "rtw_pdf_cache": rtw_pdf_cache,
           "rtw_pdf_class": rtw_pdf_class,
-          "rtw_pdf_id": rtw_pdf_id
+          "rtw_pdf_id": rtw_pdf_id,
+          security_check : rtw_pgaepb_obj.rtw_pgaepb_nonce
         },
         function (response) {
           try {

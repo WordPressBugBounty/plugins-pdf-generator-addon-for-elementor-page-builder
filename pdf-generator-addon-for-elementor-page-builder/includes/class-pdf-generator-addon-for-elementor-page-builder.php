@@ -175,11 +175,13 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		if( isset( $_GET['generate_pdf'] ) && $_GET['generate_pdf'] == true )
-		{
+
+		$rtw_get_generate_pdf = isset($_GET['generate_pdf']) ? sanitize_text_field($_GET['generate_pdf']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if( !empty( $rtw_get_generate_pdf ) && $rtw_get_generate_pdf == true ) {
 			$this->loader->add_filter('elementor/frontend/the_content', $plugin_public, 'rtw_pgaepb_convert_to_pdf', 10000);
 			$this->loader->add_action('init', $plugin_public, 'rtw_pgaepg_json_envor');
 		}
+		
 		$this->loader->add_action( 'init', $plugin_public, 'rtw_pgaepb_dwnld_pdf' );
 		$this->loader->add_action('elementor/widgets/widgets_registered', $plugin_public, 'rtw_pgaepg_add_new_elements');
 	}

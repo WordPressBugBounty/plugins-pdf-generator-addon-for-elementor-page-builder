@@ -40,6 +40,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 	 */
 	private $version;
 	public $rtw_pgaepb_stng;
+	private $rtw_post_css_file_path;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -125,18 +126,37 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pdf-generator-addon-for-elementor-page-builder-public.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script( $this->plugin_name, 'rtw_pgaepb_obj', array( 'ajax_url' => admin_url('admin-ajax.php'), 'some_thing_msg' => __('Some Thing Went Wrong! Please Try Again', 'pdf-generator-addon-for-elementor-page-builder') ) );
+
+		$rtw_pgaepb_ajax_nonce = wp_create_nonce( "rtw-pgaepb-ajax-security-string" );
+		wp_localize_script( $this->plugin_name, 'rtw_pgaepb_obj', array( 'ajax_url' => admin_url('admin-ajax.php'), 'rtw_pgaepb_nonce' => $rtw_pgaepb_ajax_nonce, 'some_thing_msg' => __('Some Thing Went Wrong! Please Try Again', 'pdf-generator-addon-for-elementor-page-builder') ) );
 
 	}
+	
+	
+	public function rtw_pgaepb_dwnld_pdf() {
+		$rtw_pdf_file = isset($_GET['rtw_pdf_file']) ? sanitize_file_name($_GET['rtw_pdf_file']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$rtw_generate_pdf = isset($_GET['rtw_generate_pdf']) ? sanitize_text_field($_GET['rtw_generate_pdf']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-
-	public function rtw_pgaepb_dwnld_pdf()
-	{
-		if(isset($_GET['rtw_generate_pdf']) && isset($_GET['rtw_pdf_file']) && !empty($_GET['rtw_pdf_file']) )
+		if( !empty($rtw_generate_pdf) && !empty($rtw_pdf_file) )
 		{
-			$rtw_file_path = RTW_PDF_DIR . '/' .sanitize_text_field($_GET['rtw_pdf_file']);
-			$rtw_file_name = sanitize_text_field($_GET['rtw_pdf_file']);
+			$rtw_file_path = realpath(RTW_PDF_DIR . '/' . $rtw_pdf_file);
+
+			// Validate file path
+			if (strpos($rtw_file_path, realpath(RTW_PDF_DIR)) !== 0 || !file_exists($rtw_file_path)) {
+				wp_die(esc_html_e('Invalid file path.', 'pdf-generator-addon-for-elementor-page-builder'));
+			}
+
+			// Validate file type
+			$rtw_filetype = wp_check_filetype($rtw_file_path);
+			if ($rtw_filetype['ext'] !== 'pdf' || $rtw_filetype['type'] !== 'application/pdf') {
+				wp_die(esc_html_e('Invalid file type.', 'pdf-generator-addon-for-elementor-page-builder'));
+			}
+
+			$rtw_file_name = $rtw_pdf_file;
 			header("Content-type:application/pdf");
+			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
 			header("Content-Disposition:attachment;filename=$rtw_file_name");
 			readfile($rtw_file_path);
 			die();
@@ -149,6 +169,10 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 		// ini_set('display_errors', 1);
 		// ini_set('display_startup_errors', 1);
 		// ini_set('error_reporting', E_ALL);
+		
+		if (!isset($_POST['security_check']) || !wp_verify_nonce(sanitize_text_field($_POST['security_check']), 'rtw-pgaepb-ajax-security-string') ) {
+            return;
+        }
 
 		ob_get_clean();
 
@@ -206,14 +230,15 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 			$rtw_post_type = get_post_type();
 
 			$rtw_postcss_one = $pathExists = '';
+			$rtw_pgaepb_id = isset($_POST['rtw_pgaepb_id']) ? sanitize_text_field($_POST['rtw_pgaepb_id']) : '';
 
 			if( function_exists('is_multisite') && is_multisite() ) {
-				$this->rtw_post_css_file_path = WP_CONTENT_URL.'/uploads/sites/'.get_current_blog_id().'/elementor/css/post-'.$_POST['rtw_pgaepb_id'].'.css';
-				$pathExists = WP_CONTENT_DIR.'/uploads/sites/'.get_current_blog_id().'/elementor/css/post-'.$_POST['rtw_pgaepb_id'].'.css';
+				$this->rtw_post_css_file_path = WP_CONTENT_URL.'/uploads/sites/'.get_current_blog_id().'/elementor/css/post-'.$rtw_pgaepb_id.'.css';
+				$pathExists = WP_CONTENT_DIR.'/uploads/sites/'.get_current_blog_id().'/elementor/css/post-'.$rtw_pgaepb_id.'.css';
 			}
 			else {
-				$this->rtw_post_css_file_path = WP_CONTENT_URL.'/uploads/elementor/css/post-'.$_POST['rtw_pgaepb_id'].'.css';
-				$pathExists = WP_CONTENT_DIR.'/uploads/elementor/css/post-'.$_POST['rtw_pgaepb_id'].'.css';
+				$this->rtw_post_css_file_path = WP_CONTENT_URL.'/uploads/elementor/css/post-'.$rtw_pgaepb_id.'.css';
+				$pathExists = WP_CONTENT_DIR.'/uploads/elementor/css/post-'.$rtw_pgaepb_id.'.css';
 			}
 
 			if( file_exists($pathExists) )
@@ -251,7 +276,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 			/* Display Date */
 			if( isset($this->rtw_pgaepb_stng['post_date']) )
 			{
-				$rtw_date = date("d-m-Y", strtotime($post->post_date));
+				$rtw_date = gmdate("d-m-Y", strtotime($post->post_date));
 				$rtw_pdf_html .= '<p class="rtw_pdf_date"><strong>Date : </strong>' . $rtw_date . '</p>';
 			}
 			$rtw_pdf_html = apply_filters('html_after_date',$rtw_pdf_html, get_the_ID());
@@ -856,8 +881,11 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 				$rtw_pdf_html = $rtw_single_product_html;
 			}
 
-			$rtw_pdf_class = explode( ",", $_POST['rtw_pdf_class'] );
-			$rtw_pdf_id = explode( ",", $_POST['rtw_pdf_id'] );
+			$rtw_pdf_class = isset($_POST['rtw_pdf_class']) ? sanitize_text_field($_POST['rtw_pdf_class']) : '';
+			$rtw_pdf_id = isset($_POST['rtw_pdf_id']) ? sanitize_text_field($_POST['rtw_pdf_id']) : '';
+			
+			$rtw_pdf_class = explode( ",", $rtw_pdf_class );
+			$rtw_pdf_id = explode( ",", $rtw_pdf_id );
 
 			/* Excluding Classes from PDF */
 			$rtw_dom_objt = new simple_html_dom();
@@ -893,7 +921,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 
 		$rtw_permalink = add_query_arg( array('rtw_generate_pdf' => 'true', 'rtw_pdf_file' => $rtw_file_name), get_permalink($post->ID) );
 		ob_get_clean();
-		echo json_encode( array('status' => true, 'pdf_url' => $rtw_permalink) );
+		echo wp_json_encode( array('status' => true, 'pdf_url' => $rtw_permalink) );
 		die();
 	}
 

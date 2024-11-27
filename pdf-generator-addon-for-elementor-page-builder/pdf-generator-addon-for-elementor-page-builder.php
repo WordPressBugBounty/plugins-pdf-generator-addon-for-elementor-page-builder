@@ -16,17 +16,17 @@
  * Plugin Name:       PDF Generator Addon for Elementor Page Builder
  * Plugin URI:        http://redefiningtheweb.com/pdf-generator-addon-for-elementor-page-builder
  * Description:       An Elementor addon that allows you to easily generate customizable PDFs from any Elementor page or post. With one-click conversion, dynamic content support, and customizable templates, you can create professional PDFs for download, sharing, or offline use directly from your WordPress site.
- * Version:           1.7.5
+ * Version:           2.0.1
  * Author:            RedefiningTheWeb
  * Author URI:        http://redefiningtheweb.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       pdf-generator-addon-for-elementor-page-builder
  * Domain Path:       /languages
- * Tested up to:      6.6.2
- * WC tested up to:   9.3.3
+ * Tested up to:      6.7.1
+ * WC tested up to:   9.4.2
  * WC requires at least: 2.6.0
- * Elementor tested up to: 3.24.4
+ * Elementor tested up to: 3.25.10
  */
 
 // If this file is called directly, abort.
@@ -57,7 +57,7 @@ if( function_exists('is_multisite') && is_multisite() )
 		 * Start at version 1.0.0 and use SemVer - https://semver.org
 		 * Rename this for your plugin and update it as you release new versions.
 		 */
-		define( 'RTW_PGAEPA_NAME_VERSION', '1.7.5' );
+		define( 'RTW_PGAEPA_NAME_VERSION', '2.0.1' );
 
 
 		/**
@@ -143,7 +143,7 @@ else{
 		 * Start at version 1.0.0 and use SemVer - https://semver.org
 		 * Rename this for your plugin and update it as you release new versions.
 		 */
-		define( 'RTW_PGAEPA_NAME_VERSION', '1.7.5' );
+		define( 'RTW_PGAEPA_NAME_VERSION', '2.0.1' );
 
 
 		/**
