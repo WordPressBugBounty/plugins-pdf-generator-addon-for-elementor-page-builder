@@ -32,7 +32,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_i18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
+	public function rtw_load_plugin_textdomain() {
 
 		load_plugin_textdomain(
 			'pdf-generator-addon-for-elementor-page-builder',

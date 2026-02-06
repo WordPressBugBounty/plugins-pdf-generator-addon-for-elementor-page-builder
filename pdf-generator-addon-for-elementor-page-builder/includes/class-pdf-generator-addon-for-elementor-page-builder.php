@@ -139,7 +139,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder {
 
 		$plugin_i18n = new Pdf_Generator_Addon_For_Elementor_Page_Builder_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'rtw_load_plugin_textdomain' );
 
 	}
 
@@ -176,7 +176,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$rtw_get_generate_pdf = isset($_GET['generate_pdf']) ? sanitize_text_field($_GET['generate_pdf']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$rtw_get_generate_pdf = isset($_GET['generate_pdf']) ? sanitize_text_field(wp_unslash($_GET['generate_pdf'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if( !empty( $rtw_get_generate_pdf ) && $rtw_get_generate_pdf == true ) {
 			$this->loader->add_filter('elementor/frontend/the_content', $plugin_public, 'rtw_pgaepb_convert_to_pdf', 10000);
 			$this->loader->add_action('init', $plugin_public, 'rtw_pgaepg_json_envor');

@@ -40,7 +40,7 @@ foreach ($rtw_mpdf->fontdata as $key=> $value)
 }
 $rtw_fonts = array_merge( $mpdf_font, $rtw_merge_font );
 
-$rtw_pgaepb_tabs = isset($_GET['rtw_pgaepb_tab']) ? sanitize_text_field($_GET['rtw_pgaepb_tab']) : '';  //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$rtw_pgaepb_tabs = isset($_GET['rtw_pgaepb_tab']) ? sanitize_text_field(wp_unslash($_GET['rtw_pgaepb_tab'])) : '';  //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 if( $rtw_pgaepb_tabs )
 {
@@ -76,25 +76,65 @@ else {
 
 <?php
 settings_errors();
+// 1. Define the URL
+$rtw_pgaepb_url = 'https://wpdemo.redefiningtheweb.com/get_pdf_mentor_offer.php?rtw_pgaepb_check=hqidhi492febbeinc263sdf';
+$rtw_pgaepb_offer_time = get_option('rtw_pgaepb_offer_time');
+$rtw_pgaepb_check_timestamp = $rtw_pgaepb_offer_time ? strtotime('+7 days', $rtw_pgaepb_offer_time) : 0;
+$rtw_pgaepb_offer = false;
+if($rtw_pgaepb_check_timestamp < time())
+{
+	// 2. Perform the request
+	$rtw_pgaepb_response = wp_remote_get( $rtw_pgaepb_url, array(
+		'timeout'     => 10,
+		'redirection' => 5,
+		'httpversion' => '1.0',
+		'blocking'    => true,
+		'headers'     => array(),
+		'cookies'     => array(),
+	) );
+
+	// 3. Check for WordPress errors (e.g., DNS failure, timeout)
+	if ( is_wp_error( $rtw_pgaepb_response ) ) {
+		$rtw_pgaepb_offer = false;
+	}
+
+	// 4. Retrieve and validate the HTTP response code
+	$rtw_pgaepb_response_code = wp_remote_retrieve_response_code( $rtw_pgaepb_response );
+	if ( 200 === $rtw_pgaepb_response_code ) {
+		// 5. Safely retrieve the response body
+		$rtw_pgaepb_body = wp_remote_retrieve_body( $rtw_pgaepb_response );
+		// 6. If the response is JSON, decode it
+		$rtw_pgaepb_offer = json_decode( $rtw_pgaepb_body, true );
+		update_option('rtw_pgaepb_offer_time', time());
+		// Process your $data here...
+	} else {
+		$rtw_pgaepb_offer = false;
+	}
+}
+if($rtw_pgaepb_offer && isset($rtw_pgaepb_offer['show_banner']) && $rtw_pgaepb_offer['show_banner'] == true)
+{
 ?>
 
 <div class="rtw_sb_popup">
 	<div class="rtw_sb_card">
 		<div class="rtw_sb_card_label">
-			<label><strong>Cyber Week Sale</strong></label>
+			<label><strong><?php echo esc_html($rtw_pgaepb_offer['offer_title']) ?></strong></label>
 		</div>
 		<div class="rtw_sb_card_body">
 			<div class="rtw_sb_close_popup">
 				<div class="rtw_sb_close_icon"></div>
 			</div>
-			<h2>Get PRO @ 50% Off</h2>
-			<a class="rtw_sb_link" href="<?php echo esc_url('https://codecanyon.net/item/pdfmentor-wordpress-pdf-generator-for-elementor-pro/28376760'); ?>" target="_blank"> <button id="rtw_sb_banner_button">Buy Now</button></a>
+			<h2><?php echo esc_html($rtw_pgaepb_offer['offer_sub_title_msg']) ?></h2>
+			<a class="rtw_sb_link" href="<?php echo esc_url($rtw_pgaepb_offer['offer_url']); ?>" target="_blank"> <button id="rtw_sb_banner_button">Buy Now</button></a>
 			<p class="rtw_popper"><img src="<?php echo esc_url(RTW_PGAEPB_URL.'/admin/assets/party-popper.png'); ?>" alt="offer popper image"></p>
-			<p class="rtw_sb_price">Just in <span><strike>$69</strike></span><span>$34</span></p>
+			<p class="rtw_sb_price">Just in <span><strike><?php echo esc_html($rtw_pgaepb_offer['buy_price']) ?></strike></span><span><?php echo esc_html($rtw_pgaepb_offer['sell_price']) ?></span></p>
 			<p class="rtw_sb_bottom_text">* Hurry up limited time offer <span class="rtw_sb_date"></span></p>
 		</div>
 	</div>
 </div>
+<?php
+}
+?>
 
 <div class="wrap rtw_pgaepb">
 	<h1><?php esc_html('PDF Generator Addon for Elementor','pdf-generator-addon-for-elementor-page-builder');?></h1>

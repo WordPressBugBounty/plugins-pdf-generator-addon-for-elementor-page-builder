@@ -3,6 +3,13 @@ namespace Elementor;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+$rtw_pgaepb_setting = get_option('rtw_pgaepb_basic_setting_opt');
+$rtw_pgaepb_restricted_role = isset($rtw_pgaepb_setting['restrict_role']) ? $rtw_pgaepb_setting['restrict_role'] : '';
+$rtw_pgaepb_curr_user = wp_get_current_user();
+if ( in_array($rtw_pgaepb_restricted_role, (array) $rtw_pgaepb_curr_user->roles, true) ) {
+	return;
+}
+
 class RTWWPGE_Widget_PDF extends Widget_Base {
 	private $rtw_pgaepb_stng;
 	public function get_name() {

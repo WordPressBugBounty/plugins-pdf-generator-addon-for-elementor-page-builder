@@ -43,8 +43,6 @@ $rtw_wprh_get_setting = get_option('rtw_pgaepb_basic_setting_opt');
 					</option>
 					<option value="post_id" <?php echo isset( $rtw_wprh_get_setting['file_name'] ) && $rtw_wprh_get_setting['file_name'] == 'post_id' ? 'selected="selected"' : '';?>><?php esc_html_e('Post ID', 'pdf-generator-addon-for-elementor-page-builder');?>
 					</option>
-				 	}
-				?>
 				</select>
 				<div class="descr"><?php esc_html_e('Select what will be the name of the generated PDF', 'pdf-generator-addon-for-elementor-page-builder');?></div>
 			</td>
@@ -116,6 +114,27 @@ $rtw_wprh_get_setting = get_option('rtw_pgaepb_basic_setting_opt');
 				<input type="checkbox" name="rtw_pgaepb_basic_setting_opt[rtw_disable_copy]" value="1" <?php echo isset( $rtw_wprh_get_setting['rtw_disable_copy'] ) && $rtw_wprh_get_setting['rtw_disable_copy'] == 1 ? 'checked="checked"' : ''; ?> />
 				<div class="descr"><?php esc_html_e('Check it if you want to disable copying of content from the generated PDF','pdf-generator-addon-for-elementor-page-builder');?>
 				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="tr1"><?php esc_html_e('Restrict User Role', 'pdf-generator-addon-for-elementor-page-builder');?></th>
+			<td class="tr2">
+				<select name="rtw_pgaepb_basic_setting_opt[restrict_role]">
+					<option value=""><?php esc_html_e('Select Role to Restrict', 'pdf-generator-addon-for-elementor-page-builder'); ?></option>
+					<?php
+						$roles = wp_roles()->roles;
+						$selected_role = isset($rtw_wprh_get_setting['restrict_role']) ? $rtw_wprh_get_setting['restrict_role'] : '';
+						foreach ($roles as $role_key => $role_info) {
+							printf(
+								'<option value="%s" %s>%s</option>',
+								esc_attr($role_key),
+								selected($selected_role, $role_key, false),
+								esc_html($role_info['name'])
+							);
+						}
+					?>
+				</select>
+				<div class="descr"><?php esc_html_e('Select a user role that should NOT be allowed to generate PDFs.', 'pdf-generator-addon-for-elementor-page-builder');?></div>
 			</td>
 		</tr>
 	</tbody>	

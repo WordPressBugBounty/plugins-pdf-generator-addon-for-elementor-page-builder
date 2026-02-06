@@ -111,10 +111,14 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	{
 		$rtw_post_info = get_post($rtw_post_id);
         if(file_exists(RTW_PDF_DIR.'/'.$rtw_post_id.'.pdf')) {
-            unlink(RTW_PDF_DIR.'/'.$rtw_post_id.'.pdf');
+            // unlink(RTW_PDF_DIR.'/'.$rtw_post_id.'.pdf');
+			$file_path = RTW_PDF_DIR . '/' . $rtw_post_id . '.pdf';
+			wp_delete_file( $file_path );
         }
         if(file_exists(RTW_PDF_DIR.'/'.$rtw_post_info->post_name.'.pdf')) {
-            unlink(RTW_PDF_DIR.'/'.$rtw_post_info->post_name.'.pdf');
+            // unlink(RTW_PDF_DIR.'/'.$rtw_post_info->post_name.'.pdf');
+			$file_path = RTW_PDF_DIR . '/' . $rtw_post_info->post_name . '.pdf';
+			wp_delete_file( $file_path );
         }
 	}
 
@@ -148,18 +152,57 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Admin {
 	 */
 	public function rtw_pgaepb_save_admin_setting()
 	{
-		$rtw_save_button = isset($_POST['rtw_pdf_submit']) ? sanitize_text_field($_POST['rtw_pdf_submit']) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$rtw_save_button = isset($_POST['rtw_pdf_submit']) ? sanitize_text_field(wp_unslash( $_POST['rtw_pdf_submit'])) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Missing
 
         if($rtw_save_button) {
             $pdf_dir = RTW_PDF_DIR;
             array_map('unlink', glob("$pdf_dir/*.*"));
         }
 
-		register_setting('rtw_pgaepb_header_setting','rtw_pgaepb_header_setting_opt');
-		register_setting('rtw_pgaepb_footer_setting','rtw_pgaepb_footer_setting_opt');
-		register_setting('rtw_pgaepb_basic_setting','rtw_pgaepb_basic_setting_opt');
-		register_setting('rtw_pgaepb_css_setting','rtw_pgaepb_css_setting_opt');
-		register_setting('rtw_pgaepb_watermark_setting','rtw_pgaepb_watermark_setting_opt');
+		register_setting(
+			'rtw_pgaepb_header_setting',
+			'rtw_pgaepb_header_setting_opt',
+			array(
+				'sanitize_callback' => array( $this, 'rtw_pgaepb_sanitize_settings' ),
+			)
+		);
+		register_setting('rtw_pgaepb_footer_setting','rtw_pgaepb_footer_setting_opt',
+			array(
+				'sanitize_callback' => array( $this, 'rtw_pgaepb_sanitize_settings' ),
+			));
+		register_setting('rtw_pgaepb_basic_setting','rtw_pgaepb_basic_setting_opt',
+			array(
+				'sanitize_callback' => array( $this, 'rtw_pgaepb_sanitize_settings' ),
+			));
+		register_setting('rtw_pgaepb_css_setting','rtw_pgaepb_css_setting_opt',
+			array(
+				'sanitize_callback' => array( $this, 'rtw_pgaepb_sanitize_settings' ),
+			));
+		register_setting('rtw_pgaepb_watermark_setting','rtw_pgaepb_watermark_setting_opt',
+			array(
+				'sanitize_callback' => array( $this, 'rtw_pgaepb_sanitize_settings' ),
+			));
 	}
+
+	public function rtw_pgaepb_sanitize_settings( $input ) {
+		return $this->recursive_sanitize( $input );
+	}
+
+
+	private function recursive_sanitize( $array ) {
+		$clean = array();
+
+		foreach ( $array as $key => $value ) {
+
+			if ( is_array( $value ) ) {
+				$clean[$key] = $this->recursive_sanitize( $value );
+			} else {
+				$clean[$key] = sanitize_text_field( $value );
+			}
+		}
+
+		return $clean;
+	}
+
 
 }

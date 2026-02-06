@@ -134,8 +134,8 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 	
 	
 	public function rtw_pgaepb_dwnld_pdf() {
-		$rtw_pdf_file = isset($_GET['rtw_pdf_file']) ? sanitize_file_name($_GET['rtw_pdf_file']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$rtw_generate_pdf = isset($_GET['rtw_generate_pdf']) ? sanitize_text_field($_GET['rtw_generate_pdf']) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$rtw_pdf_file = isset($_GET['rtw_pdf_file']) ? sanitize_file_name(wp_unslash($_GET['rtw_pdf_file'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$rtw_generate_pdf = isset($_GET['rtw_generate_pdf']) ? sanitize_text_field(wp_unslash($_GET['rtw_generate_pdf'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if( !empty($rtw_generate_pdf) && !empty($rtw_pdf_file) )
 		{
@@ -158,6 +158,8 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 			header("Cache-Control: post-check=0, pre-check=0", false);
 			header("Pragma: no-cache");
 			header("Content-Disposition:attachment;filename=$rtw_file_name");
+			// PHPCS: WordPress.WP.AlternativeFunctions.file_system_operations_readfile -- reason: WP_Filesystem cannot stream files
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
 			readfile($rtw_file_path);
 			die();
 		}
@@ -170,7 +172,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 		// ini_set('display_startup_errors', 1);
 		// ini_set('error_reporting', E_ALL);
 		
-		if (!isset($_POST['security_check']) || !wp_verify_nonce(sanitize_text_field($_POST['security_check']), 'rtw-pgaepb-ajax-security-string') ) {
+		if (!isset($_POST['security_check']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['security_check'])), 'rtw-pgaepb-ajax-security-string') ) {
             return;
         }
 
@@ -230,7 +232,7 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 			$rtw_post_type = get_post_type();
 
 			$rtw_postcss_one = $pathExists = '';
-			$rtw_pgaepb_id = isset($_POST['rtw_pgaepb_id']) ? sanitize_text_field($_POST['rtw_pgaepb_id']) : '';
+			$rtw_pgaepb_id = isset($_POST['rtw_pgaepb_id']) ? sanitize_text_field(wp_unslash($_POST['rtw_pgaepb_id'])) : '';
 
 			if( function_exists('is_multisite') && is_multisite() ) {
 				$this->rtw_post_css_file_path = WP_CONTENT_URL.'/uploads/sites/'.get_current_blog_id().'/elementor/css/post-'.$rtw_pgaepb_id.'.css';
@@ -881,8 +883,8 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 				$rtw_pdf_html = $rtw_single_product_html;
 			}
 
-			$rtw_pdf_class = isset($_POST['rtw_pdf_class']) ? sanitize_text_field($_POST['rtw_pdf_class']) : '';
-			$rtw_pdf_id = isset($_POST['rtw_pdf_id']) ? sanitize_text_field($_POST['rtw_pdf_id']) : '';
+			$rtw_pdf_class = isset($_POST['rtw_pdf_class']) ? sanitize_text_field(wp_unslash($_POST['rtw_pdf_class'])) : '';
+			$rtw_pdf_id = isset($_POST['rtw_pdf_id']) ? sanitize_text_field(wp_unslash($_POST['rtw_pdf_id'])) : '';
 			
 			$rtw_pdf_class = explode( ",", $rtw_pdf_class );
 			$rtw_pdf_id = explode( ",", $rtw_pdf_id );
