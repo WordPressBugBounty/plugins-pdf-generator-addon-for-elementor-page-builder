@@ -134,35 +134,70 @@ class Pdf_Generator_Addon_For_Elementor_Page_Builder_Public {
 	
 	
 	public function rtw_pgaepb_dwnld_pdf() {
-		$rtw_pdf_file = isset($_GET['rtw_pdf_file']) ? sanitize_file_name(wp_unslash($_GET['rtw_pdf_file'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$rtw_generate_pdf = isset($_GET['rtw_generate_pdf']) ? sanitize_text_field(wp_unslash($_GET['rtw_generate_pdf'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+    
+		// 1. Sanitize (Prevent Path Traversal)
+		$rtw_pdf_file = isset($_GET['rtw_pdf_file']) ? sanitize_file_name( wp_unslash( $_GET['rtw_pdf_file'] ) ) : '';
 
-		if( !empty($rtw_generate_pdf) && !empty($rtw_pdf_file) )
-		{
-			$rtw_file_path = realpath(RTW_PDF_DIR . '/' . $rtw_pdf_file);
-
-			// Validate file path
-			if (strpos($rtw_file_path, realpath(RTW_PDF_DIR)) !== 0 || !file_exists($rtw_file_path)) {
-				wp_die(esc_html_e('Invalid file path.', 'pdf-generator-addon-for-elementor-page-builder'));
-			}
-
-			// Validate file type
-			$rtw_filetype = wp_check_filetype($rtw_file_path);
-			if ($rtw_filetype['ext'] !== 'pdf' || $rtw_filetype['type'] !== 'application/pdf') {
-				wp_die(esc_html_e('Invalid file type.', 'pdf-generator-addon-for-elementor-page-builder'));
-			}
-
-			$rtw_file_name = $rtw_pdf_file;
-			header("Content-type:application/pdf");
-			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-			header("Cache-Control: post-check=0, pre-check=0", false);
-			header("Pragma: no-cache");
-			header("Content-Disposition:attachment;filename=$rtw_file_name");
-			// PHPCS: WordPress.WP.AlternativeFunctions.file_system_operations_readfile -- reason: WP_Filesystem cannot stream files
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
-			readfile($rtw_file_path);
-			die();
+		if ( empty( $rtw_pdf_file ) ) return;
+		$rtw_generate_pdf = isset($_GET['rtw_generate_pdf']) ? sanitize_text_field(wp_unslash($_GET['rtw_generate_pdf'])) : '';
+		if ( empty( $rtw_generate_pdf ) || $rtw_generate_pdf != true) return;
+		// 2. Security: Path Traversal Check
+		$base_dir    = realpath( RTW_PDF_DIR );
+		// Safety: If the directory doesn't exist on server, stop.
+		if ( ! $base_dir ) {
+			return; 
 		}
+		$target_path = $base_dir . '/' . $rtw_pdf_file;
+		$real_path   = realpath( $target_path );
+
+		if ( ! $base_dir || ! $real_path || strpos( $real_path, $base_dir ) !== 0 || ! file_exists( $real_path ) ) {
+			wp_die( esc_html__( 'Invalid file path.', 'pdf-generator-addon-for-elementor-page-builder' ) );
+		}
+
+		// 3. Security: File Type Check
+		$file_type = wp_check_filetype( $real_path );
+		if ( 'pdf' !== $file_type['ext'] ) {
+			wp_die( esc_html__( 'Invalid file type.', 'pdf-generator-addon-for-elementor-page-builder' ) );
+		}
+
+		// 4. Find Post ID
+		$post_id = 0;
+		$raw_name = pathinfo( $rtw_pdf_file, PATHINFO_FILENAME );
+
+		if ( is_numeric( $raw_name ) ) {
+			$post_id = intval( $raw_name );
+		} else {
+			global $wpdb;
+			$post_id = $wpdb->get_var( $wpdb->prepare( 
+				"SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type != 'attachment' LIMIT 1", 
+				$raw_name 
+			));
+		}
+
+		// 5. Security: Post Status Check
+		// FIX: We strictly require a valid Post ID. If no post is found, we deny access.
+		if ( $post_id && $post_id > 0 ) {
+			$status = get_post_status( $post_id );
+			$allowed_statuses = array( 'publish' ); 
+
+			if ( ! in_array( $status, $allowed_statuses ) ) {
+				wp_die( esc_html__( 'This file is protected or not public.', 'pdf-generator-addon-for-elementor-page-builder' ) );
+			}
+		} else {
+			// --- VULNERABILITY FIXED HERE ---
+			// If we cannot identify the post, we assume it's an orphan/system file and BLOCK IT.
+			wp_die( esc_html__( 'File source not found or access denied.', 'pdf-generator-addon-for-elementor-page-builder' ) );
+		}
+
+		// 6. Download
+		$rtw_file_name = basename( $rtw_pdf_file );
+		header( "Content-type: application/pdf" );
+		header( "Cache-Control: no-store, no-cache, must-revalidate, max-age=0" );
+		header( "Cache-Control: post-check=0, pre-check=0", false );
+		header( "Pragma: no-cache" );
+		header( "Content-Disposition: attachment; filename=" . $rtw_file_name );
+		readfile( $real_path );
+		exit;
 	}
 
 

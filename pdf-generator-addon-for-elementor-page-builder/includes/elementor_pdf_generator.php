@@ -197,13 +197,24 @@ class RTWWPGE_Widget_PDF extends Widget_Base {
 			$rtw_is_cache = false;
 		}
 		$rtw_html = '<div class="rtw_pgaepb_main">
-			<a style="cursor:pointer;" target="_blank" rel="noindex,nofollow" data-post_url="'.esc_url( add_query_arg( 'generate_pdf', 'true', get_permalink( $post->ID ) ) ).'" data-post_id="'.esc_attr($post->ID).'" data-pdf_cache="'.esc_attr($rtw_is_cache).'" data-pdf_class="'.esc_attr($settings['pdf_class']).'" data-pdf_id="'.esc_attr($settings['pdf_id']).'" title="Download PDF" class="rtwwpge_pdf_button">
-				<img alt="'.__('Download PDF','pdf-generator-addon-for-elementor-page-builder').'" src="'.$rtw_pgaepb_img[0].'" width="'.esc_attr($rtw_pgaepb_width).'" height="'.esc_attr($rtw_pgaepb_height).'">
+			<a style="cursor:pointer;" target="_blank" rel="noindex,nofollow" 
+			data-post_url="'.esc_url( add_query_arg( 'generate_pdf', 'true', get_permalink( $post->ID ) ) ).'" 
+			data-post_id="'.esc_attr($post->ID).'" 
+			data-pdf_cache="'.esc_attr($rtw_is_cache).'" 
+			data-pdf_class="'.esc_attr($settings['pdf_class']).'" 
+			data-pdf_id="'.esc_attr($settings['pdf_id']).'" 
+			title="Download PDF" class="rtwwpge_pdf_button">
+				
+				<img alt="'.esc_attr__('Download PDF','pdf-generator-addon-for-elementor-page-builder').'" 
+					src="'.esc_url($rtw_pgaepb_img[0]).'" 
+					width="'.esc_attr($rtw_pgaepb_width).'" 
+					height="'.esc_attr($rtw_pgaepb_height).'">
 			</a>
 			<img src="'.RTW_PGAEPB_URL.'/public/images/spinner.gif" class="rtwwpge_pdf_gif">
 		</div>';
-		
+
 		echo $rtw_html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		//echo $rtw_html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
 Plugin::instance()->widgets_manager->register_widget_type( new RTWWPGE_Widget_PDF() );
